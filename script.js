@@ -1,3 +1,4 @@
+
 // Login Function
 function login() {
   const userType = document.getElementById("user-type").value;

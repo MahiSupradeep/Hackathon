@@ -77,12 +77,28 @@
     </div>
 
     <div id="student-actions"></div>
+    <div class="container">
+      <h2>AI Resume Analyzer</h2>
+      
+      <label for="resume">Paste Your Resume:</label>
+      <textarea id="resume" placeholder="Paste your resume here..."></textarea>
+
+      <label for="job">Paste Job Description:</label>
+      <textarea id="job" placeholder="Paste job description here..."></textarea>
+
+      <button onclick="analyzeResume()">Analyze Resume</button>
+
+      <div id="results"></div>
+  </div>
   </div>
 
   <!-- Recruiter Portal -->
   <div id="recruiter-portal" class="portal" style="display:none;">
     <h2>Recruiter Portal</h2>
-    <iframe src="https://docs.google.com/spreadsheets/d/1F4W2xGFump5GrRH1CCishMO0Mdlxjw4so4oKeLIFwGs/edit?gid=0#gid=0" frameborder="1" width="900" height="500"></iframe>
+    <div  class="iframe-container">
+
+      <iframe   src="https://docs.google.com/spreadsheets/d/1F4W2xGFump5GrRH1CCishMO0Mdlxjw4so4oKeLIFwGs/edit?gid=0#gid=0" frameborder="1" width="Adjust" height="500"></iframe>
+    </div>
     <label for="candidate-name">Candidate Name:</label>
     <input type="text" id="candidate-name" placeholder="Enter Candidate Name">
 

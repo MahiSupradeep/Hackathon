@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Portfolio and Resume Builder</title>
+  <link rel="stylesheet" href="Style.css">
+  <script src="script.js" defer></script>
+  <style>
+    /* Align checkbox to the left */
+    #show-password {
+      margin-left: 0; /* Ensure no space on the left of the checkbox */
+      margin-right: 5px; /* Adjust space between the checkbox and label */
+    }
+
+    /* Optionally, add some style for the label */
+    #show-password-text {
+      margin-left: 5px; /* Adds slight spacing between checkbox and label text */
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" id="login-container">
+    <h1>AI-Powered Portfolio and Resume Builder</h1>
+    <div class="login-box">
+      <h2>Login</h2>
+
+      <label for="user-type">Select User Type:</label>
+      <select id="user-type">
+        <option value="student">Student</option>
+        <option value="recruiter">Recruiter</option>
+      </select>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Enter Username">
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter Password">
+
+      <!-- Show Password Checkbox with text directly beside it -->
+      <label for="show-password">
+        <input type="checkbox" id="show-password">
+        <span id="show-password-text">Show Password</span>
+      </label>
+
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <!-- Student Portal -->
+  <div id="student-portal" class="portal" style="display:none;">
+    <h2>Student Portal</h2>
+    <button onclick="showResumeForm()">Optimize Resume</button>
+    <button onclick="selectTemplate()">Select Resume Template</button>
+    <button onclick="viewAnalytics()">View Application Analytics</button>
+
+    <!-- Resume Optimization Form -->
+    <div id="resume-form" style="display:none;">
+      <h3>Enter Your Resume Details</h3>
+      <label for="student-name">Full Name:</label>
+      <input type="text" id="student-name" placeholder="Enter your name">
+
+      <label for="student-skills">Skills:</label>
+      <input type="text" id="student-skills" placeholder="e.g., Java, Python, Teamwork">
+
+      <label for="student-experience">Experience:</label>
+      <textarea id="student-experience" placeholder="Describe your work experience"></textarea>
+
+      <label for="student-education">Education:</label>
+      <input type="text" id="student-education" placeholder="e.g., B.Tech in EEE">
+
+      <button onclick="submitResume()">Submit</button>
+    </div>
+
+    <div id="student-actions"></div>
+  </div>
+
+  <!-- Recruiter Portal -->
+  <div id="recruiter-portal" class="portal" style="display:none;">
+    <h2>Recruiter Portal</h2>
+    <label for="candidate-name">Candidate Name:</label>
+    <input type="text" id="candidate-name" placeholder="Enter Candidate Name">
+
+    <label for="status">Status:</label>
+    <select id="status">
+      <option value="shortlisted">Shortlisted</option>
+      <option value="hired">Hired</option>
+      <option value="not selected">Not Selected</option>
+    </select>
+
+    <label for="feedback">Leave Feedback:</label>
+    <textarea id="feedback" placeholder="Enter Feedback"></textarea>
+
+    <button onclick="submitFeedback()">Submit</button>
+
+    <div id="recruiter-actions"></div>
+  </div>
+
+  <script>
+    // Show/Hide password functionality
+    document.getElementById("show-password").addEventListener("change", function () {
+      const passwordField = document.getElementById("password");
+      const showPasswordText = document.getElementById("show-password-text");
+
+      // If checkbox is checked, show the password
+      if (this.checked) {
+        passwordField.type = "text"; // Show password
+        showPasswordText.textContent = " Hide Password"; // Change the text to "Hide Password"
+      } else {
+        passwordField.type = "password"; // Hide the password
+        showPasswordText.textContent = " Show Password"; // Change the text to "Show Password"
+      }
+    });
+
+    // Login function
+    function login() {
+      const userType = document.getElementById('user-type').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === "" || password === "") {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Simple role-based login simulation
+      if (userType === "student") {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("student-portal").style.display = "block";
+      } else if (userType === "recruiter") {
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("recruiter-portal").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>

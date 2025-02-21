@@ -10,7 +10,7 @@
     /* Align checkbox to the left */
     #show-password {
       margin-left: 0; /* Ensure no space on the left of the checkbox */
-      margin-right: 5px; /* Adjust space between the checkbox and label */
+      margin-right:5px; /* Adjust space between the checkbox and label */
     }
 
     /* Optionally, add some style for the label */
@@ -37,11 +37,11 @@
       <label for="password">Password:</label>
       <input type="password" id="password" placeholder="Enter Password">
 
-      <!-- Show Password Checkbox with text directly beside it -->
+      <!-- Show Password Checkbox with text directly beside it
       <label for="show-password">
         <input type="checkbox" id="show-password">
         <span id="show-password-text">Show Password</span>
-      </label>
+      </label> -->
 
       <button onclick="login()">Login</button>
     </div>
@@ -56,6 +56,7 @@
 
     <!-- <button onclick="selectTemplate()">Select Resume Template</button> -->
     <button onclick="viewAnalytics()">View Application Analytics</button>
+
 
     <!-- Resume Optimization Form -->
     <div id="resume-form" style="display:none;">
@@ -81,6 +82,7 @@
   <!-- Recruiter Portal -->
   <div id="recruiter-portal" class="portal" style="display:none;">
     <h2>Recruiter Portal</h2>
+    <iframe src="https://docs.google.com/spreadsheets/d/1F4W2xGFump5GrRH1CCishMO0Mdlxjw4so4oKeLIFwGs/edit?gid=0#gid=0" frameborder="1" width="900" height="500"></iframe>
     <label for="candidate-name">Candidate Name:</label>
     <input type="text" id="candidate-name" placeholder="Enter Candidate Name">
 
@@ -92,7 +94,7 @@
     </select>
 
     <label for="feedback">Leave Feedback:</label>
-    <textarea id="feedback" placeholder="Enter Feedback"></textarea>
+    <textarea name="feedback" placeholder="Enter Feedback" cols="2" rows="2"></textarea>
 
     <button onclick="submitFeedback()">Submit</button>
 

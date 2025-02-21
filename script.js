@@ -1,4 +1,3 @@
-// Login Function
 function login() {
   const userType = document.getElementById("user-type").value;
   const username = document.getElementById("username").value;
@@ -17,48 +16,33 @@ function login() {
   }
 }
 
-// Event listener for Enter key in the login form
 document.getElementById('username').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      login();
-  }
+  if (event.key === 'Enter') login();
 });
 
 document.getElementById('password').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      login();
-  }
+  if (event.key === 'Enter') login();
 });
 
-// Student Portal Functions
 function showResumeForm() {
   document.getElementById("resume-form").style.display = "block";
-  document.getElementById("student-actions").innerHTML = ""; // Clear previous messages
+  document.getElementById("student-actions").innerHTML = "";
 }
 
-// Event listener for Enter key in the resume form
 document.getElementById('student-name').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitResume();
-  }
+  if (event.key === 'Enter') submitResume();
 });
 
 document.getElementById('student-skills').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitResume();
-  }
+  if (event.key === 'Enter') submitResume();
 });
 
 document.getElementById('student-experience').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitResume();
-  }
+  if (event.key === 'Enter') submitResume();
 });
 
 document.getElementById('student-education').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitResume();
-  }
+  if (event.key === 'Enter') submitResume();
 });
 
 function submitResume() {
@@ -86,15 +70,12 @@ function selectTemplate() {
   alert("Template selection feature is coming soon!");
 }
 
-// Function to Open Analytics in a New Tab
 function viewAnalytics() {
-  let analyticsWindow = window.open("", "_blank"); // Open new tab
+  let analyticsWindow = window.open("", "_blank");
 
   if (analyticsWindow) {
       let doc = analyticsWindow.document;
       doc.open();
-
-      // Inject Chart.js code into the new tab
       doc.write(`
           <html>
           <head>
@@ -112,7 +93,7 @@ function viewAnalytics() {
                               labels: ["Applied", "Shortlisted", "Hired", "Rejected"],
                               datasets: [{
                                   label: "Job Application Status",
-                                  data: [10, 5, 2, 3], // Example Data
+                                  data: [10, 5, 2, 3],
                                   backgroundColor: ["blue", "green", "gold", "red"]
                               }]
                           }
@@ -122,45 +103,68 @@ function viewAnalytics() {
           </body>
           </html>
       `);
-
-      doc.close(); // Close document writing
+      doc.close();
   } else {
       alert("Pop-up blocked! Please allow pop-ups to view analytics.");
   }
 }
 
-// Recruiter Portal Functions
-document.getElementById('candidate-name').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitFeedback();
+function extractKeywords(text) {
+  return text
+      .toLowerCase()
+      .match(/\b[a-zA-Z]{3,}\b/g)
+      .filter((word, index, arr) => arr.indexOf(word) === index);
+}
+
+function analyzeResume() {
+  let resumeText = document.getElementById("resume").value;
+  let jobText = document.getElementById("job").value;
+
+  if (!resumeText || !jobText) {
+      alert("Please paste both resume and job description!");
+      return;
   }
+
+  let resumeKeywords = extractKeywords(resumeText);
+  let jobKeywords = extractKeywords(jobText);
+
+  let missingSkills = jobKeywords.filter(word => !resumeKeywords.includes(word));
+  let matchScore = Math.round(((jobKeywords.length - missingSkills.length) / jobKeywords.length) * 100);
+
+  document.getElementById("results").innerHTML = `
+      <h3>Analysis Results</h3>
+      <p><strong>Match Score:</strong> ${matchScore}%</p>
+      <p><strong>Missing Keywords:</strong> ${missingSkills.join(", ") || "None"}</p>
+      <p><strong>Suggestions:</strong> Add more relevant keywords from the job description.</p>
+  `;
+}
+
+document.getElementById('candidate-name').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') submitFeedback();
 });
 
 document.getElementById('status').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitFeedback();
-  }
+  if (event.key === 'Enter') submitFeedback();
 });
 
 document.getElementById('feedback').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      submitFeedback();
-  }
+  if (event.key === 'Enter') submitFeedback();
 });
 
 function submitFeedback() {
-  const candidateName = document.getElementById("candidate-name").value;
-  const status = document.getElementById("status").value;
-  const feedback = document.getElementById("feedback").value;
+  const candidateName = document.getElementById('candidate-name').value;
+  const status = document.getElementById('status').value;
+  const feedback = document.querySelector('textarea[name="feedback"]').value;
 
-  if (candidateName && status && feedback) {
-      document.getElementById("recruiter-actions").innerHTML = `
-          <h4>Feedback Submitted</h4>
-          <p><strong>Candidate:</strong> ${candidateName}</p>
-          <p><strong>Status:</strong> ${status}</p>
-          <p><strong>Feedback:</strong> ${feedback}</p>
-      `;
-  } else {
-      alert("Please complete all fields before submitting feedback.");
+  if (candidateName === "" || feedback === "") {
+      alert("Please fill in all fields before submitting.");
+      return;
   }
+
+  const recruiterActions = document.getElementById('recruiter-actions');
+  recruiterActions.innerHTML += `<p><strong>${candidateName}</strong> - Status: ${status}<br>Feedback: ${feedback}</p>`;
+
+  document.getElementById('candidate-name').value = "";
+  document.getElementById('status').value = "shortlisted";
+  document.querySelector('textarea[name="feedback"]').value = "";
 }
